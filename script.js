@@ -12,10 +12,19 @@ async function carregarMemes() {
             <p>${meme.dataCadastro}</p>
             <p>${meme.likes}</p>
             <button class="btn-editar">Editar</button>
-            <button class="btn-apagar">Apagar</button>
+            <button class="btn-apagar" onclick="apagarMeme('${meme.id}')">Apagar</button>
         </div>`
         divGaleria.innerHTML += htmlDoMeme
     });
 }
 
-carregarMemes()
+async function apagarMeme(id) {
+    const url = `https://670edf663e7151861656043e.mockapi.io/api/memes/${id}`
+    const resposta = await fetch(url, {
+        method: 'DELETE'
+    })
+    alert('Seu meme foi excluído com sucesso!')
+    await carregarMemes()
+}
+
+carregarMemes() // Carrega os memes ao INICIAR a página
